@@ -50,11 +50,28 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script src="./assets/js/vue-verify.js"></script>
     <script>
-        //使用插件
-        Vue.use(Verify)
+        //使用插件,默认九宫格定位
+        Vue.use(Verify);
+        
+        //使用随机图形验证  
+        /*
+        Vue.use(Verify,{
+            mode:'shape',
+            position: [
+                { key: 1, label: '❈' },
+                { key: 2, label: '✿' },
+                { key: 3, label: '✲' },
+                { key: 4, label: '☃' },
+                { key: 5, label: '❀' },
+                { key: 6, label: '☂' },
+                { key: 7, label: '❄' },
+                { key: 8, label: '✪' },
+                { key: 9, label: '♧' }
+            ] 
+        });
+        */
         //必要时掺入参数
         // Vue.use(Verify,{...})
-
 
         new Vue({
             el: '#app',
@@ -65,9 +82,9 @@
 
                 //执行插件 传入一个容器ID 和 一个回调函数
                 //回调函数返回验证结果
-                this.$verify('#verify-area', (verify) => {
+                this.$verify('#verify-area', (res) => {
                     //返回验证结果
-                    this.result = verify;
+                    this.result = res;
                 });
 
             }

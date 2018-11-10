@@ -1,6 +1,6 @@
 # vue-verify.js
 
-这是一个验证码工具，基于vue编写；令人兴奋的是，它只需几行代码就能验证语义、颜色、九宫格定位以及鼠标的点击事件；
+这是一个验证码工具，基于vue编写；令人兴奋的是，它只需几行代码就能实现语义、颜色、九宫格定位、图形定位以及鼠标的点击事件五大验证；
 
 >[点击查看实例](https://749264345.github.io/vue-verify.js)
 
@@ -8,6 +8,7 @@
 > * 验证颜色区分
 > * 验证鼠标点击事件
 > * 验证九宫格定位
+> * 验证图形定位
 
 我们来尝试使用它;首先你确定已经引用了vue以及Vue-verify.js到你的项目中；
 ```html
@@ -18,10 +19,25 @@
 </div>
 ```
 ```javasript 
-//使用插件
-Vue.use(Verify)
+//使用插件,默认九宫格定位
+//Vue.use(Verify);
 
-//必要时传入选项；下面将详细说明
+//使用随机图形验证  
+Vue.use(Verify,{
+    mode:'shape',
+    position: [
+        { key: 1, label: '❈' },
+        { key: 2, label: '✿' },
+        { key: 3, label: '✲' },
+        { key: 4, label: '☃' },
+        { key: 5, label: '❀' },
+        { key: 6, label: '☂' },
+        { key: 7, label: '❄' },
+        { key: 8, label: '✪' },
+        { key: 9, label: '♧' }
+    ] 
+});
+//必要时掺入参数
 // Vue.use(Verify,{...})
 
 new Vue({
@@ -46,6 +62,8 @@ new Vue({
 ## 1.选项说明
 ```javascript
 Vue.use(verify,{
+    //验证模式，默认position，可选shape,使用图形验证
+    mode:'position',
 
     //区域选项，area为一个数组，可以传入任意多个
     //key为必传参数，不可重复，value为区域颜色，label作为语义理解
@@ -58,6 +76,7 @@ Vue.use(verify,{
     //九宫格位置选项，position为一个数组，默认为九个
     //根据需要可传入任意多个
     //key与label为必传参数，不可重复，必须一一对应
+    //使用图形验证时，label为可设置形状，如☺☻❀⚘♔♕♖等特殊字符
     position:[
     	{key:1,label:'左上方位置'},
     	{key:2,label:'正上方位置'},
@@ -83,8 +102,10 @@ Vue.use(verify,{
     errorSub:'Try again'
 })
 ```
-##### 主界面
-![ui](https://raw.githubusercontent.com/749264345/vue-verify.js/master/check.jpg)
+##### 九宫格方位验证
+![ui](https://raw.githubusercontent.com/749264345/vue-verify.js/master/position.jpg)
+##### 图形验证
+![ui](https://raw.githubusercontent.com/749264345/vue-verify.js/master/shape.jpg)
 ##### 验证成功
 ![success](https://raw.githubusercontent.com/749264345/vue-verify.js/master/success.jpg)
 ##### 验证失败
